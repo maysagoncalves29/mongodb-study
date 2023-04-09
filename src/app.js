@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import path from 'path'
 import routes from './routes';
+import cors from 'cors';
 
 
 
@@ -17,6 +19,12 @@ class App {
         this.routes();
     }
     middlewares(){
+        this.server.use(cors()); //liberação de acesso da api
+
+        this.server.use(
+            '/files',
+            express.static(path.resolve(__dirname, '..', 'uploads'))
+        );
         this.server.use(express.json());
 
     }
